@@ -5,7 +5,6 @@ import csv
 from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import make_scorer, f1_score, accuracy_score, precision_score, recall_score
 import numpy as np
-import MeCab
 from gensim import corpora, matutils, models
 from sklearn.externals import joblib
 from src import NounVerb

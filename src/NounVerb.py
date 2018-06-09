@@ -1,5 +1,5 @@
-import MeCab
 from janome.tokenizer import Tokenizer
+#import MeCab
 
 #def getNV(sentence):
 #	mecab = MeCab.Tagger('mecabrc')

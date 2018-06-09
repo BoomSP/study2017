@@ -1,5 +1,4 @@
 from sklearn.externals import joblib
-import MeCab
 import csv, time
 from gensim import corpora, matutils, models
 from sklearn.naive_bayes import MultinomialNB

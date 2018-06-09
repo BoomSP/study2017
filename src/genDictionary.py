@@ -1,5 +1,4 @@
 from gensim import corpora
-import MeCab
 import csv
 from src import NounVerb
 
