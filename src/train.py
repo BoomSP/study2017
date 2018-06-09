@@ -8,6 +8,7 @@ import numpy as np
 import MeCab
 from gensim import corpora, matutils, models
 from sklearn.externals import joblib
+from src import NounVerb
 
 import time
 
@@ -21,7 +22,7 @@ def main():
 	f = open("./src/data/TRAIN_CORPUS.csv","r")
 	reader = csv.reader(f)
 	array = []
-	for row in reader: array.append(MIYABE(row[0]))
+	for row in reader: array.append(NounVerb.getNV(row[0]))
 	dictionary = corpora.Dictionary(array)
 	dictionary.filter_extremes(no_below=50, no_above=0.5)
 	dictionary.save_as_text("./src/data/DICTIONARY.txt")
@@ -31,7 +32,7 @@ def main():
 	reader = csv.reader(f)
 	tupleData = []
 	for row in reader:
-		rowTuple = dictionary.doc2bow(MIYABE(row[0]))
+		rowTuple = dictionary.doc2bow(NounVerb.getNV(row[0]))
 		tupleData.append(rowTuple)
 	tfidfModel  = models.TfidfModel(tupleData)
 	tfidfModel.save("./src/data/TF-IDF.model")
@@ -44,7 +45,7 @@ def main():
 	f = open("./src/data/TRAIN_CORPUS.csv","r")
 	reader = csv.reader(f)
 	for row in reader:
-		tupleData = dictionary.doc2bow(MIYABE(row[0]))
+		tupleData = dictionary.doc2bow(NounVerb.getNV(row[0]))
 		corpusTfIdf = [text for text in tfidfModel[tupleData]]
 		vec      = matutils.corpus2dense([corpusTfIdf], num_terms=len(dictionary)).T[0]
 		vector.append(vec)
@@ -67,21 +68,6 @@ def main():
 	end = time.time() - start
 
 	return str(int(end*10))		#[戻り値]学習所要時間
-
-
-
-def MIYABE(sentence):
-	mecab = MeCab.Tagger('mecabrc')
-	mecab.parse('')
-	node = mecab.parseToNode(sentence)
-	node = node.next
-	nounArr = []
-	while node:
-		if (node.feature.split(',')[0] in ['名詞', '動詞']):
-			nounArr.append(node.surface)
-			#print(node.surface)
-		node = node.next
-	return nounArr
 
 
 if __name__=='__main__':

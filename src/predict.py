@@ -7,6 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 import json
+from src import NounVerb
 
 #-引数のtextをもとに各事由コードの尤度を算出し，良いスコアのコードを20件返す
 #-辞書型
@@ -32,7 +33,7 @@ def main(sentence):
 	#-[]
 
 	#-[入力文書のベクトル化]
-	tupleData = dictionary.doc2bow(getNV(sentence))
+	tupleData = dictionary.doc2bow(NounVerb.getNV(sentence))
 	corpusTfIdf = [text for text in tfidfModel[tupleData]]
 	vector      = matutils.corpus2dense([corpusTfIdf], num_terms=len(dictionary)).T
 	#-[]----------------------------
@@ -58,20 +59,6 @@ def main(sentence):
 
 	return resultDict
 
-##[名詞動詞抽出関数]#######################################################
-def getNV(sentence):
-	mecab = MeCab.Tagger('mecabrc')
-	mecab.parse('')
-	node = mecab.parseToNode(sentence)
-	node = node.next
-	nounArr = []
-	while node:
-		if (node.feature.split(',')[0] in ['名詞', '動詞']):
-			nounArr.append(node.surface)
-			#print(node.surface)
-		node = node.next
-	return nounArr
-######################################################################
 
 if __name__ == "__main__":
 	main("液晶")
