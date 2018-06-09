@@ -1,3 +1,4 @@
+mecab-python3==0.5
 boto==2.48.0
 boto3==1.7.34
 botocore==1.10.34
@@ -29,4 +30,3 @@ six==1.11.0
 smart-open==1.5.7
 urllib3==1.22
 Werkzeug==0.14.1
-mecab-python3==0.7
