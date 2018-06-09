@@ -20,7 +20,6 @@ jmespath==0.9.3
 MarkupSafe==1.0
 mojimoji==0.0.8
 numpy==1.14.4
-pkg-resources==0.0.0
 python-dateutil==2.7.3
 requests==2.18.4
 s3transfer==0.1.13
