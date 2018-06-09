@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>平成29年度卒業研究 WEB App</title>
+	<link href="/static/css/sticky-footer.css" rel="stylesheet">
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/bootstrapMyConf.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+		<script src="/static/js/IE9/html5shiv.min.js"></script>
+		<script src="/static/js/IE9/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+
+<body>
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/index.js"></script>
+
+
+	<div class="container">
+		<div class="page-header topLink">
+			<a class="topLink" href="/">
+				<h1>平成29年度卒業研究<small> WEB Application</small></h1>
+			</a>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a href="/predict">
+					<h1 class="panel-title">コードの推定</h1>
+				</a>
+			</div>
+			<div class="panel-body">
+				顧客からの故障情報をもとに、故障事由コードを推定します。<br>推定結果は、尤度の高い順から20位まで表示されます。
+				ブラウザを使用しない故障事由コードの推定は
+				<a href="/api_usage">「webAPIを用いたコード推定について」</a>
+				を参照してください。<br>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a href="/add">
+				<h5 class="panel-title">コーパスへの追加</h5>
+				</a>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-warning" role="alert">
+					<b>研究開発用のため、新規登録されたデータは実際には機械学習モデルに反映されることはありません</b>
+				</div>
+				<br>
+				故障情報と故障事由の組み合わせを新たにコーパスへ登録します。<br>
+				ブラウザを使用しないコーパスへの追加は
+				<a href="/api_usage">「webAPIを用いたコード推定について」</a>
+				を参照してください。<br>
+				※「コーパス」とはテキストを大規模に集積したデータ群を指す用語です
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<a href="/edit">
+				<h5 class="panel-title">コーパスの編集</h5>
+				</a>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-warning" role="alert">
+					<b>研究公開用のため、編集されたデータは実際には機械学習モデルに反映されることはありません</b>
+				</div>
+				過去に登録したデータの編集を行います。<br>（各日付のcsvファイルのみ編集できます
+				※過去2万件, 5万件のデータは編集できません）
+
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h5 class="panel-title text-center">機械学習モデルの更新</h5>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-warning" role="alert">
+					<b>研究公開用のため、機械学習モデルの更新は現在停止しています。</b>
+				</div>
+				<br>
+				<s>機械学習モデルの更新を行います。</s>
+				<hr>
+				<div class="text-center ">
+					<button id="preLearn" type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#learnModal">学習モデルを更新する</button>
+					<div id="lastLearn"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 機械学習モデル更新モーダル -->
+		<div class="modal" id="learnModal" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+						<h4 class="modal-title">機械学習モデルの更新</h4>
+					</div>
+					<div class="modal-body">
+						<div id="dataNum" class="text-center "></div>
+
+						<button id="learnBtn" type="button" class="btn btn-success  btn-block" disabled="disabled">学習</button>
+						<button id="cancel" type="button" data-dismiss="modal" class="btn btn-default btn-block" >キャンセル</button>
+
+						<div id="fListTable"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /削除モーダル -->
+
+
+
+
+	</div>
+
+	<footer class="footer">
+	  <div class="container">
+	    <p class="text-muted text-center">Copyright © 2018 弓削商船高専 田房研究室 All rights Reserved.</p>
+	  </div>
+	</footer>
+
+
+</body>
+
+
+
+</html>

@@ -1,0 +1,68 @@
+
+E61
+電源投入不可、電源を入れようとすると青点滅になるが電源は入らない。　◎発熱有。フィルム破棄了承なし。しばらくすると電源が入りAndroid起動中画面になり（相当時間がかかる）、電源投入可能になる。この症状が頻繁に起こる。
+
+G04
+ＬＩＮＥで文字入力をする際に、キーボードが出てくるが文字入力できない。ひどい時には５分に１回ペースで電源再始動することがある。
+
+
+
+
+<br>
+    <label>故障事由コード</label>
+    <input class="form-control center-block" style="width:100px;" pattern="^([a-zA-Z0-9]{3,3})$">
+
+
+    <br>
+    <label>故障情報</label>
+		<textarea placeholder="複数行に渡るテキストを入力できる。" rows="3" class="form-control" id="text"></textarea>
+    <p>ＬＩＮＥで文字入力をする際に、キーボードが出てくるが文字入力できない。</p>
+    <br>
+    <button id="predict" type="button" class="btn btn-primary btn-block">推定</button>
+data-dismiss="modal"
+
+
+genDictionary 6.080224990844727
+genTFIDF 6.360779762268066
+genTrainData 7.714154958724976
+saveModel 0.23346590995788574
+
+
+genDictionary 5.755681037902832
+genTFIDF 5.427481174468994
+genTrainData 8.337350606918335
+saveModel 0.30376529693603516
+
+
+genDictionary 4.432477712631226
+genTFIDF 4.507051944732666
+genTrainData 5.3202455043792725
+saveModel 0.2642841339111328
+
+
+###############################################
+	f = open("./src/data/TRAIN_CORPUS.csv","r")
+	reader = csv.reader(f)
+	array = []
+	for row in reader: array.append(MIYABE(row[0]))
+	dictionary = corpora.Dictionary(array)
+	dictionary.filter_extremes(no_below=50, no_above=0.5)
+	dictionary.save_as_text("./src/data/DICTIONARY.txt")
+###############################################
+
+	end = time.time() - start
+	print("genDictionary",end)
+	start = time.time()
+
+###############################################
+
+	f = open("./src/data/TRAIN_CORPUS.csv","r")
+	reader = csv.reader(f)
+	tupleData = []
+	for row in reader:
+		rowTuple = dictionary.doc2bow(MIYABE(row[0]))
+		tupleData.append(rowTuple)
+	tfidfModel  = models.TfidfModel(tupleData)
+	tfidfModel.save("./src/data/TF-IDF.model")
+
+###############################################

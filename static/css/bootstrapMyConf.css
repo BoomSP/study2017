@@ -1,0 +1,33 @@
+.main{
+	padding-bottom: 60px;
+}
+
+.addForm{
+	margin-right: 50px
+}
+
+.container {
+	max-width: 100%;
+}
+
+
+hr {
+	height: 1px;
+	background-color: #AAAAAA;
+}
+
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > th {
+  vertical-align: middle;
+	table-layout: fixed;
+  text-align: center;
+}
+
+
+
+.topLink {color: #333333;
+  text-decoration: none;
+}
+.topLink:hover {color: #333333;
+}

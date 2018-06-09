@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>コーパスへの追加 - H29卒研webApp</title>
+	<link href="/static/css/sticky-footer.css" rel="stylesheet">
+	<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/static/css/bootstrapMyConf.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+		<script src="/static/js/IE9/html5shiv.min.js"></script>
+		<script src="/static/js/IE9/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+
+<body>
+
+	<script src="/static/js/jquery.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/add.js"></script>
+
+	<div class="container main">
+		<div class="page-header">
+			<a class="topLink" href="/">
+				<h1>平成29年度卒業研究<small> WEB Application</small></h1>
+			</a>
+		</div>
+
+    <!--########################################################################-->
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label class="col-md-2 control-label">故障情報</label>
+        <div class="col-md-10">
+          <textarea id="text" class="form-control" rows=3 placeholder="故障情報を入力してください"></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-2 control-label">故障事由コード</label>
+        <div class="col-md-1">
+          <input id="code" class="form-control pull-left" placeholder="半角英数字" style="width:100px;" pattern="^([a-zA-Z0-9]{3,3})$">
+        </div>
+      </div>
+    </form>
+
+    <button id="add" type="button" class="btn btn-primary btn-block">追加</button>
+		<br>
+		<a href="">webAPIを用いたコーパスへの追加について</a>
+		<hr>
+    <!--########################################################################-->
+		<div class="text-center">
+  		<div id="result" class="panel panel-default">
+        <h4>本日の登録されたコーパス</h4>
+				<div id="date"></div>
+        <div id="codeTable"class="panel-body">
+        </div>
+      </div>
+		</div>
+    <!--########################################################################-->
+
+    <!-- 編集モーダル -->
+    <div class="modal" id="editModal" tabindex="-1">
+    	<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+    			<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+    				<h4 class="modal-title">コーパスの更新</h4>
+    			</div>
+    			<div class="modal-body">
+            <form class="form-horizontal">
+              <div class="form-group">
+								<div id="id2"></div>
+                <label class="col-md-2 control-label">故障情報</label>
+                <div id="text2" class="col-md-10">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-2 control-label">故障事由コード</label>
+                <div id="code2" class="col-md-1">
+                </div>
+              </div>
+            </form>
+
+            <button id="update" type="button" class="btn btn-primary btn-block" >更新</button>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <!-- /編集モーダル -->
+
+		<!-- 削除モーダル -->
+		<div class="modal" id="deleteModal" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+						<h4 class="modal-title">コーパスを削除</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<div id="idDel"></div>
+								<label class="col-md-2 control-label">故障情報</label>
+								<div id="textDel" class="col-md-10">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">故障事由コード</label>
+								<div id="codeDel" class="col-md-1">
+								</div>
+							</div>
+						</form>
+
+						<button id="deleteBtn" type="button" class="btn btn-danger  btn-block" >削除</button>
+						<button id="cancel" type="button" data-dismiss="modal" class="btn btn-default btn-block" >キャンセル</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /削除モーダル -->
+
+		<!-- サンプル付き入力エラーモーダル-->
+		<div class="modal" id="inputErrorModal_sample" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+						<h4 class="modal-title">入力内容が正しくありません</h4>
+					</div>
+					<div class="modal-body">
+						<p>どちらかが未入力か、故障事由コードが正しくありません。
+							<br>故障事由コードは「A-Zまたは0の接頭1字と2桁の数字（半角英数字3字）」です
+						</p>
+						<hr>
+						<button id="smpl1" type="button" data-dismiss="modal" class="smplBtn btn btn-danger  btn-block" >サンプルテキスト1</button>
+						<button id="smpl2" type="button" data-dismiss="modal" class="smplBtn btn btn-danger  btn-block" >サンプルテキスト2</button>
+						<button id="smpl3" type="button" data-dismiss="modal" class="smplBtn btn btn-danger  btn-block" >サンプルテキスト3</button>
+						<hr>
+						<button id="cancel" type="button" data-dismiss="modal" class="btn btn-default btn-block" >閉じる</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /入力エラーモーダル -->
+
+		<!-- 入力エラーモーダル -->
+		<div class="modal" id="inputErrorModal" tabindex="-1">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+						<h4 class="modal-title">入力内容が正しくありません</h4>
+					</div>
+					<div class="modal-body">
+						<p>どちらかが未入力か、故障事由コードが正しくありません。
+							<br>故障事由コードは「A-Zまたは0の接頭1字と2桁の数字（半角英数字3字）」です
+						</p>
+						<button id="cancel" type="button" data-dismiss="modal" class="btn btn-default btn-block" >閉じる</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /入力エラーモーダル -->
+
+	</div>
+
+	<footer class="footer">
+		<div class="container">
+			<p class="text-muted text-center">Copyright © 2018 弓削商船高専 田房研究室 All rights Reserved.</p>
+		</div>
+	</footer>
+</body>
+</html>
