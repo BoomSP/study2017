@@ -96,7 +96,7 @@ def edit_page_parse(fileDate):
 #################################################################################
 
 
-@sockets.route('/')			# 機械学習を実行
+@sockets.route('/ws/')			# 機械学習を実行
 def index_socket(ws):
 
 	#-[学習モデル最終更新日時取得]--------------------------------------------------#
@@ -109,7 +109,7 @@ def index_socket(ws):
 
 	ws.send(json.dumps(result, ensure_ascii=False))
 
-@sockets.route('/learn')	#機械学習を実行
+@sockets.route('/ws/learn')	#機械学習を実行
 def learn_socket(ws):
 	while not ws.closed:
 		trainConf = ws.receive()
@@ -142,7 +142,7 @@ def learn_socket(ws):
 			ws.send("SUCCESS")
 
 
-@sockets.route('/predict')	#【済】
+@sockets.route('/ws/predict')	#【済】
 def predict_socket(ws):
 	while not ws.closed:
 		text = ws.receive()														#ソケットメッセージ取得
@@ -157,7 +157,7 @@ def predict_socket(ws):
 
 		ws.send(json.dumps(predictDict))												#
 
-@sockets.route('/corpusToday')	#【済】
+@sockets.route('/ws/corpusToday')	#【済】
 def corpusToday_socket(ws):
 		date = datetime.now().strftime('%y%m%d')
 		fname = "./corpus/corpus"+date+".csv"
@@ -178,7 +178,7 @@ def corpusToday_socket(ws):
 
 		ws.send(json.dumps(result, ensure_ascii=False))
 
-@sockets.route('/add') #【済】
+@sockets.route('/ws/add') #【済】
 def add_socket(ws):
 	while not ws.closed:
 		data = ws.receive()
@@ -211,7 +211,7 @@ def add_socket(ws):
 
 			ws.send(json.dumps(result, ensure_ascii=False))
 
-@sockets.route('/update') #【済】
+@sockets.route('/ws/update') #【済】
 def update_socket(ws):
 		data = ws.receive()														#[date, id, text, code]
 		if data is not None:
@@ -242,7 +242,7 @@ def update_socket(ws):
 
 			ws.send(json.dumps(result, ensure_ascii=False))
 
-@sockets.route('/delete') #【済】
+@sockets.route('/ws/delete') #【済】
 def delete_socket(ws):
 		data = ws.receive()
 		if data is not None:
@@ -272,7 +272,7 @@ def delete_socket(ws):
 			ws.send(json.dumps(result, ensure_ascii=False))
 
 #-[コーパス]
-@sockets.route('/corpusList')	#コーパスリストを取得
+@sockets.route('/ws/corpusList')	#コーパスリストを取得
 def corpusList_socket(ws):
 		fList = glob.glob('./corpus/corpus*.csv')
 		fList.sort()
@@ -300,7 +300,7 @@ def corpusList_socket(ws):
 
 		ws.send(json.dumps(result, ensure_ascii=False))
 
-@sockets.route('/corpusParse')	#その日のコーパスを取得
+@sockets.route('/ws/corpusParse')	#その日のコーパスを取得
 def corpusParse_socket(ws):
 	data = ws.receive()
 	print(data)

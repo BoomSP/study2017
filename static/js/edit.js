@@ -1,13 +1,13 @@
 
-var corpusListHost = "ws://"+document.domain+':'+location.port+"/corpusList";
+var corpusListHost = "ws://"+document.domain+':'+location.port+"/ws/corpusList";
 var corpusListSocket = new WebSocket(corpusListHost);
 
-var corpusParseHost = "ws://"+document.domain+':'+location.port+"/corpusParse";
+var corpusParseHost = "ws://"+document.domain+':'+location.port+"/ws/corpusParse";
 var corpusParseSocket = new WebSocket(corpusParseHost);
 
-var updateHost = "ws://"+document.domain+':'+location.port+"/update";
+var updateHost = "ws://"+document.domain+':'+location.port+"/ws/update";
 var updateSocket = new WebSocket(updateHost);
-var deleteHost = "ws://"+document.domain+':'+location.port+"/delete";
+var deleteHost = "ws://"+document.domain+':'+location.port+"/ws/delete";
 var deleteSocket = new WebSocket(deleteHost);
 
 $(function(){

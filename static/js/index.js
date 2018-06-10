@@ -1,6 +1,6 @@
-var host = "ws://"+document.domain+':'+location.port+"/";
+var host = "ws://"+document.domain+':'+location.port+"/ws/";
 var socket = new WebSocket(host);
-var corpusListHost = "ws://"+document.domain+':'+location.port+"/corpusList";
+var corpusListHost = "ws://"+document.domain+':'+location.port+"/ws/corpusList";
 var corpusListSocket = new WebSocket(corpusListHost);
 
 
@@ -19,7 +19,7 @@ $(function(){
 
 	}
 
-	var learnHost = "ws://"+document.domain+':'+location.port+"/learn";
+	var learnHost = "ws://"+document.domain+':'+location.port+"/ws/learn";
 	var learnSocket = new WebSocket(learnHost);
 	$('#learnBtn').click(function(e){
 		var area = $('[name=hoge]:checked').map(function() {

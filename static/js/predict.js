@@ -1,6 +1,6 @@
 $(function(){
 
-  var host = "ws://"+document.domain+':'+location.port+"/predict";
+  var host = "ws://"+document.domain+':'+location.port+"/ws/predict";
   var socket = new WebSocket(host);
 
 	//-[推定実行]------------------------------------------------------------------//

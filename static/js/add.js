@@ -1,10 +1,10 @@
-var host = "ws://"+document.domain+':'+location.port+"/add";
+var host = "ws://"+document.domain+':'+location.port+"/ws/add";
 var socket = new WebSocket(host);
-var corpusTodayHost = "ws://"+document.domain+':'+location.port+"/corpusToday";
+var corpusTodayHost = "ws://"+document.domain+':'+location.port+"/ws/corpusToday";
 var corpusTodaySocket = new WebSocket(corpusTodayHost);
-var updateHost = "ws://"+document.domain+':'+location.port+"/update";
+var updateHost = "ws://"+document.domain+':'+location.port+"/ws/update";
 var updateSocket = new WebSocket(updateHost);
-var deleteHost = "ws://"+document.domain+':'+location.port+"/delete";
+var deleteHost = "ws://"+document.domain+':'+location.port+"/ws/delete";
 var deleteSocket = new WebSocket(deleteHost);
 
 
